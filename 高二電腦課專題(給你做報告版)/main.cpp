@@ -1,23 +1,23 @@
 #include <bits/stdc++.h>
 using namespace std;
 
-// ©w¸q¤@¨Ç±`¥Îªº§»¡]¥i¥H¤è«K¦aÂ²¤Æ¥N½X¡^
-// #define int long long // ¦pªG»İ­n³B²z¤j¼Æ¹Bºâ¡A¥i¥H¨ú®ø³o¦æªºµù¸Ñ
-#define ALL(x) x.begin(), x.end()                 // §Ö³t¨ú±o®e¾¹ªº­º§À½d³ò
-#define pb(x) push_back(x)                        // Â²¤Æ¦V®e¾¹¤¤¥[¤J¤¸¯Àªº¾Ş§@
-#define lys1004 ios_base::sync_with_stdio(false); // ´£¤É¿é¤J¿é¥X®Ä²v
+// å®šç¾©ä¸€äº›å¸¸ç”¨çš„å®ï¼ˆå¯ä»¥æ–¹ä¾¿åœ°ç°¡åŒ–ä»£ç¢¼ï¼‰
+// #define int long long // å¦‚æœéœ€è¦è™•ç†å¤§æ•¸é‹ç®—ï¼Œå¯ä»¥å–æ¶ˆé€™è¡Œçš„è¨»è§£
+#define ALL(x) x.begin(), x.end()                 // å¿«é€Ÿå–å¾—å®¹å™¨çš„é¦–å°¾ç¯„åœ
+#define pb(x) push_back(x)                        // ç°¡åŒ–å‘å®¹å™¨ä¸­åŠ å…¥å…ƒç´ çš„æ“ä½œ
+#define lys1004 ios_base::sync_with_stdio(false); // æå‡è¼¸å…¥è¼¸å‡ºæ•ˆç‡
 
-// ¶}µo³]©w°Ï---------------------------------------
+// é–‹ç™¼è¨­å®šå€---------------------------------------
 
-// ©w¸q¤T­Ó¤£¦Pµ¥¯Å¦a¹Ïªº¤j¤p¡Aª`·N¥u¯à¬O©_¼Æ¡]°¸¼Æ¦a¹Ï¥i¯à·|¥X¿ù¡^
+// å®šç¾©ä¸‰å€‹ä¸åŒç­‰ç´šåœ°åœ–çš„å¤§å°ï¼Œæ³¨æ„åªèƒ½æ˜¯å¥‡æ•¸ï¼ˆå¶æ•¸åœ°åœ–å¯èƒ½æœƒå‡ºéŒ¯ï¼‰
 const int Lv1_map_size = 11;
 const int Lv2_map_size = 21;
 const int Lv3_map_size = 31;
 
-// ª±®aªì©l¦ì¸m
+// ç©å®¶åˆå§‹ä½ç½®
 const int start_r = 1, start_c = 1;
 
-// ¦UºØ¹CÀ¸¤¤ªºª«¥ó²Å¸¹
+// å„ç¨®éŠæˆ²ä¸­çš„ç‰©ä»¶ç¬¦è™Ÿ
 const char wall = '#';
 const char path = ' ';
 const char player = 'p';
@@ -29,107 +29,107 @@ const char small_boom = 'b';
 
 //--------------------------------------------------
 
-// ª±®a¸ê°Tªºµ²ºcÅé
+// ç©å®¶è³‡è¨Šçš„çµæ§‹é«”
 struct player_data
 {
-    string user_name = "Nan";             // ª±®a¦WºÙ
-    string user_code = "Nan";             // ª±®a±K½X
-    unsigned long long int user_coin = 0; // ª±®a¥Ø«e¾Ö¦³ªºª÷¹ô¼Æ¶q
-    unsigned int user_Level = 0;          // ª±®aµ¥¯Å
-    bool game_over = false;               // ª±®a¬O§_¦º¤`
+    string user_name = "Nan";             // ç©å®¶åç¨±
+    string user_code = "Nan";             // ç©å®¶å¯†ç¢¼
+    unsigned long long int user_coin = 0; // ç©å®¶ç›®å‰æ“æœ‰çš„é‡‘å¹£æ•¸é‡
+    unsigned int user_Level = 0;          // ç©å®¶ç­‰ç´š
+    bool game_over = false;               // ç©å®¶æ˜¯å¦æ­»äº¡
 };
 
-player_data p_dt; // «Ø¥ß¤@­Ó¥ş°ìÅÜ¼Æ¨Ó¦sÀxª±®aªº¸ê°T
+player_data p_dt; // å»ºç«‹ä¸€å€‹å…¨åŸŸè®Šæ•¸ä¾†å­˜å„²ç©å®¶çš„è³‡è¨Š
 
-// ª±®a¦º¤`ªº¨ç¼Æ
+// ç©å®¶æ­»äº¡çš„å‡½æ•¸
 void die()
 {
     cout << "\n\n\n\n\n--------------------------\n";
-    cout << "§A¦º¤F~"; // ´£¥Üª±®a¦º¤`
+    cout << "ä½ æ­»äº†~"; // æç¤ºç©å®¶æ­»äº¡
     cout << "\n--------------------------\n\n\n\n\n\n\n";
 }
 
-// ¦a¹Ï¸ê°Tªºµ²ºcÅé
+// åœ°åœ–è³‡è¨Šçš„çµæ§‹é«”
 struct map_data
 {
-    int Level = 0;     // ¦a¹Ïµ¥¯Å
-    int boom = 0;      // ¦a¹Ï¤¤¬µ¼uªº¼Æ¶q
-    int coin = 0;      // ¦a¹Ï¤¤ª÷¹ôªº¼Æ¶q
-    int coin_data = 0; // ª÷¹ô¥X²{ªº¾÷²v
-    int p_r = 1;       // ª±®a©Ò¦bªº¦æ
-    int p_c = 1;       // ª±®a©Ò¦bªº¦C
-    int run = true;    // ¹CÀ¸¬O§_¹B¦æ
-    int map_len = 0;   // ¦a¹ÏªºÃäªø
+    int Level = 0;     // åœ°åœ–ç­‰ç´š
+    int boom = 0;      // åœ°åœ–ä¸­ç‚¸å½ˆçš„æ•¸é‡
+    int coin = 0;      // åœ°åœ–ä¸­é‡‘å¹£çš„æ•¸é‡
+    int coin_data = 0; // é‡‘å¹£å‡ºç¾çš„æ©Ÿç‡
+    int p_r = 1;       // ç©å®¶æ‰€åœ¨çš„è¡Œ
+    int p_c = 1;       // ç©å®¶æ‰€åœ¨çš„åˆ—
+    int run = true;    // éŠæˆ²æ˜¯å¦é‹è¡Œ
+    int map_len = 0;   // åœ°åœ–çš„é‚Šé•·
 };
 
-// ¥Î©ó¥|­Ó¤è¦V²¾°Êªº¦æ©M¦CÅÜ¤Æ¶q
+// ç”¨æ–¼å››å€‹æ–¹å‘ç§»å‹•çš„è¡Œå’Œåˆ—è®ŠåŒ–é‡
 const int dr[] = {0, 1, 0, -1};
 const int dc[] = {1, 0, -1, 0};
 
-// ÀË¬dÀÉ®×ªº¨ç¼Æ
+// æª¢æŸ¥æª”æ¡ˆçš„å‡½æ•¸
 void cheak_file()
 {
-    string file_name = "data.txt"; // ©w¸q­nÀË¬dªºÀÉ®×¦WºÙ
-    ifstream in(file_name);        // ¶}±ÒÀÉ®×
+    string file_name = "data.txt"; // å®šç¾©è¦æª¢æŸ¥çš„æª”æ¡ˆåç¨±
+    ifstream in(file_name);        // é–‹å•Ÿæª”æ¡ˆ
     string line;
     while (getline(in, line))
-    {                        // «ö¦æÅª¨úÀÉ®×¤º®e
-        cout << line << " "; // ¿é¥XÀÉ®×¤º®e
+    {                        // æŒ‰è¡Œè®€å–æª”æ¡ˆå…§å®¹
+        cout << line << " "; // è¼¸å‡ºæª”æ¡ˆå…§å®¹
     }
-    in.close(); // Ãö³¬ÀÉ®×
+    in.close(); // é—œé–‰æª”æ¡ˆ
 }
 
-// ¨ç¼ÆÁn©ú
+// å‡½æ•¸è²æ˜
 void login();
 
-// µù¥U±b¸¹ªº¨ç¼Æ
+// è¨»å†Šå¸³è™Ÿçš„å‡½æ•¸
 void Register()
 {
-    ofstream out("data.txt", ios::app); // ¶}±ÒÀÉ®×¡]°l¥[¼Ò¦¡¡^
-    cout << "½Ğ¥ıµù¥U±b¸¹\n\n\n";
-    cout << "½Ğ³]©wª±®a±b¸¹: ";
-    cin >> p_dt.user_name; // ¿é¤Jª±®a±b¸¹
-    cout << "\n½Ğ³]©w±K½X: ";
-    cin >> p_dt.user_code;                                                          // ¿é¤Jª±®a±K½X
-    out << p_dt.user_name << " " << p_dt.user_code << " " << 0 << " " << 0 << endl; // «O¦s¨ìÀÉ®×
-    out.close();                                                                    // Ãö³¬ÀÉ®×
-    login();                                                                        // µù¥U§¹¦¨«áª½±µ¶i¤Jµn¤J¬yµ{
+    ofstream out("data.txt", ios::app); // é–‹å•Ÿæª”æ¡ˆï¼ˆè¿½åŠ æ¨¡å¼ï¼‰
+    cout << "è«‹å…ˆè¨»å†Šå¸³è™Ÿ\n\n\n";
+    cout << "è«‹è¨­å®šç©å®¶å¸³è™Ÿ: ";
+    cin >> p_dt.user_name; // è¼¸å…¥ç©å®¶å¸³è™Ÿ
+    cout << "\nè«‹è¨­å®šå¯†ç¢¼: ";
+    cin >> p_dt.user_code;                                                          // è¼¸å…¥ç©å®¶å¯†ç¢¼
+    out << p_dt.user_name << " " << p_dt.user_code << " " << 0 << " " << 0 << endl; // ä¿å­˜åˆ°æª”æ¡ˆ
+    out.close();                                                                    // é—œé–‰æª”æ¡ˆ
+    login();                                                                        // è¨»å†Šå®Œæˆå¾Œç›´æ¥é€²å…¥ç™»å…¥æµç¨‹
     cout << "\n";
     return;
 }
 
-// µn¤J¨ç¼Æ
+// ç™»å…¥å‡½æ•¸
 void login()
 {
-    ifstream in("data.txt"); // ¶}±ÒÀÉ®×
+    ifstream in("data.txt"); // é–‹å•Ÿæª”æ¡ˆ
     if (!in.is_open())
-    { // ÀË¬dÀÉ®×¬O§_¦¨¥\¶}±Ò
-        cerr << "µLªk¶}±ÒÀÉ®× data.txt\n";
+    { // æª¢æŸ¥æª”æ¡ˆæ˜¯å¦æˆåŠŸé–‹å•Ÿ
+        cerr << "ç„¡æ³•é–‹å•Ÿæª”æ¡ˆ data.txt\n";
         return;
     }
 
     char cheak;
-    cout << "\n¬O§_¤wµù¥U? Y/n: ";
-    cin >> cheak; // °İª±®a¬O§_¤wµù¥U
+    cout << "\næ˜¯å¦å·²è¨»å†Š? Y/n: ";
+    cin >> cheak; // å•ç©å®¶æ˜¯å¦å·²è¨»å†Š
     if (cheak == 'n' || cheak == 'N')
-    {               // ¦pªGª±®a¥¼µù¥U
-        Register(); // ©I¥sµù¥U¨ç¼Æ
+    {               // å¦‚æœç©å®¶æœªè¨»å†Š
+        Register(); // å‘¼å«è¨»å†Šå‡½æ•¸
         return;
     }
 
     while (true)
     {
         string player_name, player_code;
-        cout << "\n½Ğ¿é¤Jª±®a¦WºÙ: ";
-        cin >> player_name; // ¿é¤Jª±®a¦WºÙ
-        cout << "\n½Ğ¿é¤J±K½X: ";
-        cin >> player_code; // ¿é¤J±K½X
+        cout << "\nè«‹è¼¸å…¥ç©å®¶åç¨±: ";
+        cin >> player_name; // è¼¸å…¥ç©å®¶åç¨±
+        cout << "\nè«‹è¼¸å…¥å¯†ç¢¼: ";
+        cin >> player_code; // è¼¸å…¥å¯†ç¢¼
 
         string line;
-        vector<string> lines; // Àx¦sÀÉ®×¤¤©Ò¦³ªº¦æ
-        bool found = false;   // ¬O§_§ä¨ì¤Ç°tªº±b¸¹©M±K½X
+        vector<string> lines; // å„²å­˜æª”æ¡ˆä¸­æ‰€æœ‰çš„è¡Œ
+        bool found = false;   // æ˜¯å¦æ‰¾åˆ°åŒ¹é…çš„å¸³è™Ÿå’Œå¯†ç¢¼
 
-        // Åª¨úÀÉ®×¤º®e¨ÃÀË¬d¬O§_¤Ç°t
+        // è®€å–æª”æ¡ˆå…§å®¹ä¸¦æª¢æŸ¥æ˜¯å¦åŒ¹é…
         while (getline(in, line))
         {
             string name, code, coin, level;
@@ -137,55 +137,55 @@ void login()
             iss >> name >> code >> coin >> level;
 
             if (name == player_name && code == player_code)
-            { // ¦pªG¤Ç°t¦¨¥\
+            { // å¦‚æœåŒ¹é…æˆåŠŸ
                 found = true;
-                p_dt.user_name = name; // §ó·sª±®a¸ê°T
+                p_dt.user_name = name; // æ›´æ–°ç©å®¶è³‡è¨Š
                 p_dt.user_code = code;
                 p_dt.user_coin = stoi(coin);
                 p_dt.user_Level = stoi(level);
             }
             else
             {
-                lines.push_back(line); // ¦pªG¤£¤Ç°t¡A«O¦s¸Ó¦æ
+                lines.push_back(line); // å¦‚æœä¸åŒ¹é…ï¼Œä¿å­˜è©²è¡Œ
             }
         }
-        in.close(); // Ãö³¬ÀÉ®×
+        in.close(); // é—œé–‰æª”æ¡ˆ
 
         cout << "\n\n";
         if (found)
-        { // ¦pªG§ä¨ì¤Ç°tªº±b¸¹
-            cout << "µn¤J§¹¦¨!!\n\n";
+        { // å¦‚æœæ‰¾åˆ°åŒ¹é…çš„å¸³è™Ÿ
+            cout << "ç™»å…¥å®Œæˆ!!\n\n";
 
-            // ±N­×§ï«áªº¤º®e¼g¦^ÀÉ®×
+            // å°‡ä¿®æ”¹å¾Œçš„å…§å®¹å¯«å›æª”æ¡ˆ
             ofstream out("data.txt");
             for (const string &l : lines)
             {
                 out << l << '\n';
             }
-            out.close(); // Ãö³¬ÀÉ®×
+            out.close(); // é—œé–‰æª”æ¡ˆ
             return;
         }
         else
         {
-            // ¦pªGµn¤J¥¢±Ñ¡A´£¨Ñ¿ï¶µµ¹ª±®a
-            cout << "§ä¤£¨ìª±®a±b¸¹©Î±K½X¿ù»~QQ\n\n";
-            cout << "µù¥U±b¸¹: 1";
-            cout << "\n­«·sµn¤J: 2";
-            cout << "\n¹C«È±b¸¹: 3";
-            cout << "\n½Ğ¿é¤J¿ï¾Ü: ";
+            // å¦‚æœç™»å…¥å¤±æ•—ï¼Œæä¾›é¸é …çµ¦ç©å®¶
+            cout << "æ‰¾ä¸åˆ°ç©å®¶å¸³è™Ÿæˆ–å¯†ç¢¼éŒ¯èª¤QQ\n\n";
+            cout << "è¨»å†Šå¸³è™Ÿ: 1";
+            cout << "\né‡æ–°ç™»å…¥: 2";
+            cout << "\néŠå®¢å¸³è™Ÿ: 3";
+            cout << "\nè«‹è¼¸å…¥é¸æ“‡: ";
             int n;
             cin >> n;
             if (n == 1)
-            { // µù¥U·s±b¸¹
+            { // è¨»å†Šæ–°å¸³è™Ÿ
                 Register();
             }
             else if (n == 2)
-            {                        // ­«·s¹Á¸Õµn¤J
-                in.open("data.txt"); // ­«·s¶}±ÒÀÉ®×
+            {                        // é‡æ–°å˜—è©¦ç™»å…¥
+                in.open("data.txt"); // é‡æ–°é–‹å•Ÿæª”æ¡ˆ
                 continue;
             }
             else
-            { // ¹C«È¼Ò¦¡¡Aª½±µ°h¥Xµn¤J¬yµ{
+            { // éŠå®¢æ¨¡å¼ï¼Œç›´æ¥é€€å‡ºç™»å…¥æµç¨‹
                 break;
             }
         }
@@ -194,256 +194,256 @@ void login()
 
 //----------------------------------------------------------
 
-// ÀH¾÷¥Í¦¨¦a¹Ï
+// éš¨æ©Ÿç”Ÿæˆåœ°åœ–
 void make_map(vector<vector<char>> &arr, int r, int c, int map_size)
 {
-    arr[r][c] = path;                                  // ±N·í«e¦ì¸m³]¬°¸ô®|
-    vector<int> side = {0, 1, 2, 3};                   // ¥|­Ó¤è¦V¡]¤W¡B¥k¡B¤U¡B¥ª¡^
-    shuffle(ALL(side), default_random_engine(rand())); // ÀH¾÷¥´¶Ã¤è¦V¶¶§Ç
+    arr[r][c] = path;                                  // å°‡ç•¶å‰ä½ç½®è¨­ç‚ºè·¯å¾‘
+    vector<int> side = {0, 1, 2, 3};                   // å››å€‹æ–¹å‘ï¼ˆä¸Šã€å³ã€ä¸‹ã€å·¦ï¼‰
+    shuffle(ALL(side), default_random_engine(rand())); // éš¨æ©Ÿæ‰“äº‚æ–¹å‘é †åº
     for (auto i : side)
-    {                              // ¹M¾ú¨C­Ó¤è¦V
-        int new_r = r + dr[i] * 2; // ­pºâ·s¦ì¸mªº¦æ
-        int new_c = c + dc[i] * 2; // ­pºâ·s¦ì¸mªº¦C
-        // ½T«O·s¦ì¸m¦b¦a¹Ï½d³ò¤º¡A¥B©|¥¼¥Í¦¨¸ô®|
+    {                              // éæ­·æ¯å€‹æ–¹å‘
+        int new_r = r + dr[i] * 2; // è¨ˆç®—æ–°ä½ç½®çš„è¡Œ
+        int new_c = c + dc[i] * 2; // è¨ˆç®—æ–°ä½ç½®çš„åˆ—
+        // ç¢ºä¿æ–°ä½ç½®åœ¨åœ°åœ–ç¯„åœå…§ï¼Œä¸”å°šæœªç”Ÿæˆè·¯å¾‘
         if (new_r >= 0 && new_r < map_size && new_c >= 0 && new_c < map_size * 2 && arr[new_r][new_c] == wall)
         {
-            arr[r + dr[i]][c + dc[i]] = path;      // ¦b¨âÂI¶¡¥´³q¸ô®|
-            make_map(arr, new_r, new_c, map_size); // »¼Âk³B²z¤U¤@¦ì¸m
+            arr[r + dr[i]][c + dc[i]] = path;      // åœ¨å…©é»é–“æ‰“é€šè·¯å¾‘
+            make_map(arr, new_r, new_c, map_size); // éæ­¸è™•ç†ä¸‹ä¸€ä½ç½®
         }
     }
 }
 
-// ÀH¾÷©ñ¸mµw¹ô
+// éš¨æ©Ÿæ”¾ç½®ç¡¬å¹£
 void put_coin(vector<vector<char>> &arr, map_data &mp_dt)
 {
-    int count_coin = 0; // °O¿ı©ñ¸mªºµw¹ô¼Æ¶q
+    int count_coin = 0; // è¨˜éŒ„æ”¾ç½®çš„ç¡¬å¹£æ•¸é‡
     for (auto &i : arr)
-    { // ¹M¾ú¦a¹Ïªº¨C¤@¦æ
+    { // éæ­·åœ°åœ–çš„æ¯ä¸€è¡Œ
         for (auto &k : i)
-        {                                     // ¹M¾ú¨C¤@¦C
-            int x = rand() % mp_dt.coin_data; // ®Ú¾Ú¾÷²v¥Í¦¨ÀH¾÷¼Æ
+        {                                     // éæ­·æ¯ä¸€åˆ—
+            int x = rand() % mp_dt.coin_data; // æ ¹æ“šæ©Ÿç‡ç”Ÿæˆéš¨æ©Ÿæ•¸
             if (x == 0 && k == path)
-            {                 // ¦pªGÀH¾÷¼Æ¬°0¥B¸Ó¦ì¸m¬O¸ô®|
-                k = coin;     // ©ñ¸mµw¹ô
-                count_coin++; // ¼W¥[µw¹ô­p¼Æ
+            {                 // å¦‚æœéš¨æ©Ÿæ•¸ç‚º0ä¸”è©²ä½ç½®æ˜¯è·¯å¾‘
+                k = coin;     // æ”¾ç½®ç¡¬å¹£
+                count_coin++; // å¢åŠ ç¡¬å¹£è¨ˆæ•¸
             }
         }
     }
-    mp_dt.coin = count_coin; // §ó·s¦a¹Ï¤¤ªºµw¹ô¼Æ¶q
+    mp_dt.coin = count_coin; // æ›´æ–°åœ°åœ–ä¸­çš„ç¡¬å¹£æ•¸é‡
 }
 
-// ÀH¾÷©ñ¸m¬µ¼u
+// éš¨æ©Ÿæ”¾ç½®ç‚¸å½ˆ
 void put_boom(vector<vector<char>> &arr, map_data &mp_dt)
 {
-    int count_boom = 0; // °O¿ı©ñ¸mªº¬µ¼u¼Æ¶q
+    int count_boom = 0; // è¨˜éŒ„æ”¾ç½®çš„ç‚¸å½ˆæ•¸é‡
     for (auto &i : arr)
-    { // ¹M¾ú¦a¹Ïªº¨C¤@¦æ
+    { // éæ­·åœ°åœ–çš„æ¯ä¸€è¡Œ
         for (auto &k : i)
-        {                        // ¹M¾ú¨C¤@¦C
-            int x = rand() % 80; // ÀH¾÷¾÷²v¥Í¦¨
+        {                        // éæ­·æ¯ä¸€åˆ—
+            int x = rand() % 80; // éš¨æ©Ÿæ©Ÿç‡ç”Ÿæˆ
             if (x == 0 && k == path)
-            {                       // ¦pªGÀH¾÷¼Æ¬°0¥B¸Ó¦ì¸m¬O¸ô®|
-                int n = rand() % 2; // ÀH¾÷¿ï¾Ü¬µ¼uÃş«¬
+            {                       // å¦‚æœéš¨æ©Ÿæ•¸ç‚º0ä¸”è©²ä½ç½®æ˜¯è·¯å¾‘
+                int n = rand() % 2; // éš¨æ©Ÿé¸æ“‡ç‚¸å½ˆé¡å‹
                 if (n == 1)
-                    k = big_boom; // ¤j¬µ¼u
+                    k = big_boom; // å¤§ç‚¸å½ˆ
                 else
-                    k = small_boom; // ¤p¬µ¼u
-                count_boom++;       // ¼W¥[¬µ¼u­p¼Æ
+                    k = small_boom; // å°ç‚¸å½ˆ
+                count_boom++;       // å¢åŠ ç‚¸å½ˆè¨ˆæ•¸
             }
         }
     }
-    mp_dt.boom = count_boom; // §ó·s¦a¹Ï¤¤ªº¬µ¼u¼Æ¶q
+    mp_dt.boom = count_boom; // æ›´æ–°åœ°åœ–ä¸­çš„ç‚¸å½ˆæ•¸é‡
 }
 
-// ¼ÒÀÀ¤ô¬yÂX´²
+// æ¨¡æ“¬æ°´æµæ“´æ•£
 void water_mod(int r, int c, vector<vector<char>> arr, int power)
 {
     if (power == 0)
-        return; // ¦pªG¤ô¬y¯à¶q¬°0¡A²×¤î»¼Âk
+        return; // å¦‚æœæ°´æµèƒ½é‡ç‚º0ï¼Œçµ‚æ­¢éè¿´
     if (arr[r][c] != player)
     {
-        arr[r][c] = water; // ±N·í«e¦ì¸m³]¬°¤ô
+        arr[r][c] = water; // å°‡ç•¶å‰ä½ç½®è¨­ç‚ºæ°´
     }
     for (int i = 0; i < 4; i++)
-    {                       // BFS¼ÒÀÀ¤ô¬y¡A¹M¾ú¥|­Ó¤è¦V
-        int nr = r + dr[i]; // ·s¦æ¦ì¸m
-        int nc = c + dc[i]; // ·s¦C¦ì¸m
+    {                       // BFSæ¨¡æ“¬æ°´æµï¼Œéæ­·å››å€‹æ–¹å‘
+        int nr = r + dr[i]; // æ–°è¡Œä½ç½®
+        int nc = c + dc[i]; // æ–°åˆ—ä½ç½®
         if (arr[nr][nc] == path || arr[nr][nc] == player)
-        {                                      // ¦pªG¬O¸ô®|©Îª±®a¦ì¸m
-            water_mod(nr, nc, arr, power - 1); // »¼ÂkÄ~Äò¤ô¬yÂX´²
+        {                                      // å¦‚æœæ˜¯è·¯å¾‘æˆ–ç©å®¶ä½ç½®
+            water_mod(nr, nc, arr, power - 1); // éè¿´ç¹¼çºŒæ°´æµæ“´æ•£
         }
     }
 }
 
-// ¤p¬µ¼uÃz¬µ¼ÒÀÀ
+// å°ç‚¸å½ˆçˆ†ç‚¸æ¨¡æ“¬
 void Small_boom(int r, int c, vector<vector<char>> &arr, int power)
 {
     if (power == 0)
-        return; // ¦pªGÃz¬µ«Â¤O¬°0¡A²×¤î»¼Âk
+        return; // å¦‚æœçˆ†ç‚¸å¨åŠ›ç‚º0ï¼Œçµ‚æ­¢éè¿´
     if (arr[r][c] != player)
     {
-        arr[r][c] = small_fire; // ±N·í«e¦ì¸m³]¬°¤õµK
+        arr[r][c] = small_fire; // å°‡ç•¶å‰ä½ç½®è¨­ç‚ºç«ç„°
     }
     for (int i = 0; i < 4; i++)
-    {                       // BFS¼ÒÀÀÃz¬µÂX´²¡A¹M¾ú¥|­Ó¤è¦V
-        int nr = r + dr[i]; // ·s¦æ¦ì¸m
-        int nc = c + dc[i]; // ·s¦C¦ì¸m
+    {                       // BFSæ¨¡æ“¬çˆ†ç‚¸æ“´æ•£ï¼Œéæ­·å››å€‹æ–¹å‘
+        int nr = r + dr[i]; // æ–°è¡Œä½ç½®
+        int nc = c + dc[i]; // æ–°åˆ—ä½ç½®
         if (arr[nr][nc] == path || arr[nr][nc] == player)
-        {                                       // ¦pªG¬O¸ô®|©Îª±®a¦ì¸m
-            Small_boom(nr, nc, arr, power - 1); // »¼Âk¼ÒÀÀÃz¬µÂX´²
+        {                                       // å¦‚æœæ˜¯è·¯å¾‘æˆ–ç©å®¶ä½ç½®
+            Small_boom(nr, nc, arr, power - 1); // éè¿´æ¨¡æ“¬çˆ†ç‚¸æ“´æ•£
         }
     }
 }
 
-// ¤j¬µ¼uÃz¬µ¼ÒÀÀ
+// å¤§ç‚¸å½ˆçˆ†ç‚¸æ¨¡æ“¬
 void Big_boom(int r, int c, vector<vector<char>> &arr, int len)
 {
-    int power = rand() % 4 + 1; // ÀH¾÷¥Í¦¨Ãz¬µ«Â¤O¡]1¨ì4¡^
+    int power = rand() % 4 + 1; // éš¨æ©Ÿç”Ÿæˆçˆ†ç‚¸å¨åŠ›ï¼ˆ1åˆ°4ï¼‰
     for (int i = 1; i < len; i++)
-    { // ¹M¾ú¦a¹Ïªº¨C¤@¦æ
+    { // éæ­·åœ°åœ–çš„æ¯ä¸€è¡Œ
         for (int k = 1; k < len * 2; k++)
-        { // ¹M¾ú¦a¹Ïªº¨C¤@¦C
-            // ¦pªG¸Ó¦ì¸m¦b°Ò«¢¹y¶ZÂ÷½d³ò¤º¡A¥B¤£¬Oµw¹ô
+        { // éæ­·åœ°åœ–çš„æ¯ä¸€åˆ—
+            // å¦‚æœè©²ä½ç½®åœ¨æ›¼å“ˆé “è·é›¢ç¯„åœå…§ï¼Œä¸”ä¸æ˜¯ç¡¬å¹£
             if (abs(i - r) + abs(c - k) <= power && arr[i][k] != coin)
             {
-                arr[i][k] = path; // ²M°£»ÙÃªª«¡]³]¸m¬°¸ô®|¡^
+                arr[i][k] = path; // æ¸…é™¤éšœç¤™ç‰©ï¼ˆè¨­ç½®ç‚ºè·¯å¾‘ï¼‰
             }
         }
     }
 }
 
-// ©ñ¸mª±®a¨Ã³B²z©Ò¦b¦ì¸mªºª«¥ó
+// æ”¾ç½®ç©å®¶ä¸¦è™•ç†æ‰€åœ¨ä½ç½®çš„ç‰©ä»¶
 void put_player(vector<vector<char>> &my_map, map_data &mp_dt)
 {
-    char place = my_map[mp_dt.p_r][mp_dt.p_c]; // Àò¨úª±®a©Ò¦b¦ì¸mªºª«¥ó
+    char place = my_map[mp_dt.p_r][mp_dt.p_c]; // ç²å–ç©å®¶æ‰€åœ¨ä½ç½®çš„ç‰©ä»¶
     if (place == coin)
-    {                     // ¦pªGª±®a¯¸¦bµw¹ô¤W
-        p_dt.user_coin++; // ¼W¥[ª±®aªºµw¹ô¼Æ¶q
-        mp_dt.coin--;     // ¦a¹Ï¤¤ªºµw¹ôÁ`¼Æ´î¤Ö
+    {                     // å¦‚æœç©å®¶ç«™åœ¨ç¡¬å¹£ä¸Š
+        p_dt.user_coin++; // å¢åŠ ç©å®¶çš„ç¡¬å¹£æ•¸é‡
+        mp_dt.coin--;     // åœ°åœ–ä¸­çš„ç¡¬å¹£ç¸½æ•¸æ¸›å°‘
     }
     else if (place == small_boom)
-    {                                                             // ¦pªGª±®a¯¸¦b¤p¬µ¼u¤W
-        Small_boom(mp_dt.p_r, mp_dt.p_c, my_map, rand() % 5 + 1); // Ä²µo¤p¬µ¼uÃz¬µ
+    {                                                             // å¦‚æœç©å®¶ç«™åœ¨å°ç‚¸å½ˆä¸Š
+        Small_boom(mp_dt.p_r, mp_dt.p_c, my_map, rand() % 5 + 1); // è§¸ç™¼å°ç‚¸å½ˆçˆ†ç‚¸
     }
     else if (place == big_boom)
-    {                                                          // ¦pªGª±®a¯¸¦b¤j¬µ¼u¤W
-        Big_boom(mp_dt.p_r, mp_dt.p_c, my_map, mp_dt.map_len); // Ä²µo¤j¬µ¼uÃz¬µ
+    {                                                          // å¦‚æœç©å®¶ç«™åœ¨å¤§ç‚¸å½ˆä¸Š
+        Big_boom(mp_dt.p_r, mp_dt.p_c, my_map, mp_dt.map_len); // è§¸ç™¼å¤§ç‚¸å½ˆçˆ†ç‚¸
     }
     else if (place == small_fire)
-    {                          // ¦pªGª±®a¯¸¦b¤õµK¤W
-        die();                 // ª±®a¦º¤`
-        p_dt.game_over = true; // ¹CÀ¸µ²§ô
+    {                          // å¦‚æœç©å®¶ç«™åœ¨ç«ç„°ä¸Š
+        die();                 // ç©å®¶æ­»äº¡
+        p_dt.game_over = true; // éŠæˆ²çµæŸ
         return;
     }
-    my_map[mp_dt.p_r][mp_dt.p_c] = player; // ³]¸mª±®a©Ò¦b¦ì¸m¬°ª±®a²Å¸¹
+    my_map[mp_dt.p_r][mp_dt.p_c] = player; // è¨­ç½®ç©å®¶æ‰€åœ¨ä½ç½®ç‚ºç©å®¶ç¬¦è™Ÿ
     if (mp_dt.coin == 0)
-        mp_dt.run = false; // ¦pªGµw¹ô¾ß§¹¡A°±¤î¹CÀ¸
+        mp_dt.run = false; // å¦‚æœç¡¬å¹£æ’¿å®Œï¼Œåœæ­¢éŠæˆ²
 }
 
-// ¦L¥X¦a¹Ï
+// å°å‡ºåœ°åœ–
 void print_map(vector<vector<char>> &arr)
 {
     for (auto i : arr)
-    { // ¹M¾ú¨C¤@¦æ
+    { // éæ­·æ¯ä¸€è¡Œ
         for (auto k : i)
-        {              // ¹M¾ú¨C¤@¦C
-            cout << k; // ¦L¥X²Å¸¹
+        {              // éæ­·æ¯ä¸€åˆ—
+            cout << k; // å°å‡ºç¬¦è™Ÿ
         }
-        cout << "\n"; // ´«¦æ
+        cout << "\n"; // æ›è¡Œ
     }
 }
 
-// Åã¥Ü¦a¹Ï¸ê°T
+// é¡¯ç¤ºåœ°åœ–è³‡è¨Š
 void Print_map_data(map_data &mp_dt)
 {
-    cout << "\n\n·í«e¦a¹Ï¸ê°T\n\n";
-    cout << "¦a¹Ïµ¥¯Å: " << mp_dt.Level << "\n";
-    cout << "¿ú¹ôÁ`¼Æ: " << mp_dt.coin << "\n";
-    cout << "¬µ¼uÁ`¼Æ: " << mp_dt.boom << "\n\n";
+    cout << "\n\nç•¶å‰åœ°åœ–è³‡è¨Š\n\n";
+    cout << "åœ°åœ–ç­‰ç´š: " << mp_dt.Level << "\n";
+    cout << "éŒ¢å¹£ç¸½æ•¸: " << mp_dt.coin << "\n";
+    cout << "ç‚¸å½ˆç¸½æ•¸: " << mp_dt.boom << "\n\n";
 }
 
-// Åã¥Üª±®a§Y®É¸ê°T
+// é¡¯ç¤ºç©å®¶å³æ™‚è³‡è¨Š
 void Print_player_data()
 {
-    cout << "\nª±®a«ù¦³¿ú¹ô: " << p_dt.user_coin << endl;
+    cout << "\nç©å®¶æŒæœ‰éŒ¢å¹£: " << p_dt.user_coin << endl;
 }
 
-// Åã¥Üª±®a§¹¾ã¸ê®Æ
+// é¡¯ç¤ºç©å®¶å®Œæ•´è³‡æ–™
 void Print_user_data()
 {
     cout << "\n\n-----------------------------------\n";
-    cout << "¹CÀ¸¦WºÙ: " << p_dt.user_name << "\n";
-    cout << "ª±®aµ¥¯Å: " << p_dt.user_Level << "\n";
-    cout << "«ù¦³¿ú¹ôÁ`¼Æ: " << p_dt.user_coin << "\n";
+    cout << "éŠæˆ²åç¨±: " << p_dt.user_name << "\n";
+    cout << "ç©å®¶ç­‰ç´š: " << p_dt.user_Level << "\n";
+    cout << "æŒæœ‰éŒ¢å¹£ç¸½æ•¸: " << p_dt.user_coin << "\n";
     cout << "-----------------------------------\n\n";
 }
 
-// ³B²zª±®a²¾°Ê¾Ş§@
+// è™•ç†ç©å®¶ç§»å‹•æ“ä½œ
 void move_mod(int &boom_skill, int &water_skill, vector<vector<char>> &my_map, map_data &mp_dt)
 {
     char player_move;
-    cout << "\n¿é¤J¾Ş§@: ";
-    cin >> player_move;                 // Àò¨úª±®a¾Ş§@
-    player_move = tolower(player_move); // ²Î¤@¬°¤p¼g
+    cout << "\nè¼¸å…¥æ“ä½œ: ";
+    cin >> player_move;                 // ç²å–ç©å®¶æ“ä½œ
+    player_move = tolower(player_move); // çµ±ä¸€ç‚ºå°å¯«
     if (player_move == 'w')
-    { // ¦V¤W²¾°Ê
+    { // å‘ä¸Šç§»å‹•
         if (my_map[mp_dt.p_r - 1][mp_dt.p_c] == wall)
-            return;                          // ¹J¨ìÀğ¾À°±¤î
-        my_map[mp_dt.p_r][mp_dt.p_c] = path; // ²M°£ÂÂ¦ì¸m
-        mp_dt.p_r -= 1;                      // §ó·s¦æ¦ì¸m
+            return;                          // é‡åˆ°ç‰†å£åœæ­¢
+        my_map[mp_dt.p_r][mp_dt.p_c] = path; // æ¸…é™¤èˆŠä½ç½®
+        mp_dt.p_r -= 1;                      // æ›´æ–°è¡Œä½ç½®
     }
     else if (player_move == 'd')
-    { // ¦V¥k²¾°Ê
+    { // å‘å³ç§»å‹•
         if (my_map[mp_dt.p_r][mp_dt.p_c + 1] == wall)
             return;
         my_map[mp_dt.p_r][mp_dt.p_c] = path;
-        mp_dt.p_c += 1; // §ó·s¦C¦ì¸m
+        mp_dt.p_c += 1; // æ›´æ–°åˆ—ä½ç½®
     }
     else if (player_move == 's')
-    { // ¦V¤U²¾°Ê
+    { // å‘ä¸‹ç§»å‹•
         if (my_map[mp_dt.p_r + 1][mp_dt.p_c] == wall)
             return;
         my_map[mp_dt.p_r][mp_dt.p_c] = path;
         mp_dt.p_r += 1;
     }
     else if (player_move == 'a')
-    { // ¦V¥ª²¾°Ê
+    { // å‘å·¦ç§»å‹•
         if (my_map[mp_dt.p_r][mp_dt.p_c - 1] == wall)
             return;
         my_map[mp_dt.p_r][mp_dt.p_c] = path;
         mp_dt.p_c -= 1;
     }
     else if (player_move == 'b' && boom_skill != 0)
-    { // ¨Ï¥Î¤j¬µ¼u§Ş¯à
+    { // ä½¿ç”¨å¤§ç‚¸å½ˆæŠ€èƒ½
         Big_boom(mp_dt.p_r, mp_dt.p_c, my_map, mp_dt.map_len);
         boom_skill--;
     }
     else if (player_move == 'c' && water_skill != 0)
-    { // ¨Ï¥Î¤ô¬y§Ş¯à
+    { // ä½¿ç”¨æ°´æµæŠ€èƒ½
         water_mod(mp_dt.p_r, mp_dt.p_c, my_map, 4);
         water_skill--;
     }
     else if (player_move == 'n')
-    { // µ²§ô¹CÀ¸
+    { // çµæŸéŠæˆ²
         mp_dt.run = false;
     }
 }
 
 signed main()
 {
-    srand(time(NULL)); // ªì©l¤ÆÀH¾÷¼ÆºØ¤l
+    srand(time(NULL)); // åˆå§‹åŒ–éš¨æ©Ÿæ•¸ç¨®å­
     int num;
-    cout << "µn¤J±b¸¹: 1\n¹C«È±b¸¹: 2\n½Ğ¿ï¾Ü: ";
+    cout << "ç™»å…¥å¸³è™Ÿ: 1\néŠå®¢å¸³è™Ÿ: 2\nè«‹é¸æ“‡: ";
     cin >> num;
     if (num == 1)
-        login(); // ³B²zµn¤J
+        login(); // è™•ç†ç™»å…¥
     int choose_Lv;
     int map_size;
 again:
 start:
-    cout << "½Ğ¿ï¾Ü°g®cµ¥¯Å\nªì¯Å : 1\n¤¤¯Å : 2\n°ª¯Å : 3\nª±®a¸ê°T : 4\n½Ğ¿é¤J>>";
+    cout << "è«‹é¸æ“‡è¿·å®®ç­‰ç´š\nåˆç´š : 1\nä¸­ç´š : 2\né«˜ç´š : 3\nç©å®¶è³‡è¨Š : 4\nè«‹è¼¸å…¥>>";
     cin >> choose_Lv;
-    map_data main_dt; // ªì©l¤Æ¦a¹Ï¼Æ¾Ú
+    map_data main_dt; // åˆå§‹åŒ–åœ°åœ–æ•¸æ“š
     switch (choose_Lv)
     {
     case 1:
@@ -466,37 +466,37 @@ start:
         break;
     case 4:
         Print_user_data();
-        goto again; // ¦^¨ì¿ï³æ
+        goto again; // å›åˆ°é¸å–®
     default:
-        cout << "¿é¤J¿ù»~½Ğ­«·s¿é¤J";
-        goto start; // ¦^¨ì¶}©l¿ï¾Ü
+        cout << "è¼¸å…¥éŒ¯èª¤è«‹é‡æ–°è¼¸å…¥";
+        goto start; // å›åˆ°é–‹å§‹é¸æ“‡
     }
-    vector<vector<char>> main_map(map_size, vector<char>(map_size * 2 + 1, wall)); // ªì©l¤Æ¦a¹Ï
-    make_map(main_map, start_r, start_c, map_size);                                // ¥Í¦¨¦a¹Ï
-    put_boom(main_map, main_dt);                                                   // ©ñ¸m¬µ¼u
-    put_coin(main_map, main_dt);                                                   // ©ñ¸mµw¹ô
+    vector<vector<char>> main_map(map_size, vector<char>(map_size * 2 + 1, wall)); // åˆå§‹åŒ–åœ°åœ–
+    make_map(main_map, start_r, start_c, map_size);                                // ç”Ÿæˆåœ°åœ–
+    put_boom(main_map, main_dt);                                                   // æ”¾ç½®ç‚¸å½ˆ
+    put_coin(main_map, main_dt);                                                   // æ”¾ç½®ç¡¬å¹£
     double START = clock();
     while (main_dt.run)
-    {                                                         // ¹CÀ¸´`Àô
-        int boom_skill = 3, water_skill = 3;                  // ªì©l¤Æ§Ş¯à¦¸¼Æ
-        put_player(main_map, main_dt);                        // §ó·sª±®a¦ì¸m
-        print_map(main_map);                                  // ¦L¥X¦a¹Ï
-        Print_player_data();                                  // Åã¥Üª±®a¸ê°T
-        Print_map_data(main_dt);                              // Åã¥Ü¦a¹Ï¸ê°T
-        move_mod(boom_skill, water_skill, main_map, main_dt); // ³B²z²¾°Ê
+    {                                                         // éŠæˆ²å¾ªç’°
+        int boom_skill = 3, water_skill = 3;                  // åˆå§‹åŒ–æŠ€èƒ½æ¬¡æ•¸
+        put_player(main_map, main_dt);                        // æ›´æ–°ç©å®¶ä½ç½®
+        print_map(main_map);                                  // å°å‡ºåœ°åœ–
+        Print_player_data();                                  // é¡¯ç¤ºç©å®¶è³‡è¨Š
+        Print_map_data(main_dt);                              // é¡¯ç¤ºåœ°åœ–è³‡è¨Š
+        move_mod(boom_skill, water_skill, main_map, main_dt); // è™•ç†ç§»å‹•
         if (p_dt.game_over)
-            break; // ¦pªG¹CÀ¸µ²§ô¡A°h¥X´`Àô
+            break; // å¦‚æœéŠæˆ²çµæŸï¼Œé€€å‡ºå¾ªç’°
     }
     double END = clock();
-    if (!p_dt.game_over)// ³qÃö«á´£¤Éª±®aµ¥¯Å
+    if (!p_dt.game_over)// é€šé—œå¾Œæå‡ç©å®¶ç­‰ç´š
         p_dt.user_Level += main_dt.Level;
-    ofstream out("data.txt");             // «O¦sª±®a¼Æ¾Ú
+    ofstream out("data.txt");             // ä¿å­˜ç©å®¶æ•¸æ“š
     out << p_dt.user_name << " " << p_dt.user_code << " " << p_dt.user_coin << " " << p_dt.user_Level << endl;
-    cout << "\n¹CÀ¸µ²§ô\nªá¶O®É¶¡: " << (END - START) / CLOCKS_PER_SEC << "¬í\n";
+    cout << "\néŠæˆ²çµæŸ\nèŠ±è²»æ™‚é–“: " << (END - START) / CLOCKS_PER_SEC << "ç§’\n";
     char a;
-    cout << "¬O§_Ä~ÄòY/n: ";
+    cout << "æ˜¯å¦ç¹¼çºŒY/n: ";
     cin >> a;
     if (tolower(a) == 'y')
-        goto again; // ­«·s¶}©l¹CÀ¸
+        goto again; // é‡æ–°é–‹å§‹éŠæˆ²
     return 0;
 }
