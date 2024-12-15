@@ -4,12 +4,12 @@ using namespace std;
 #define ALL(x) x.begin(), x.end()
 #define pb(x) push_back(x)
 #define lys1004 ios_base::sync_with_stdio(false);//, cin.tie(0), cout.tie(0);
-//¶}µo³]©w°Ï---------------------------------------
+//é–‹ç™¼è¨­å®šå€---------------------------------------
 
-const int Lv1_map_size = 11;//¤£­n³]°¸¼Æ,³]°¸¼Æ¦a¹Ï·|¯}www
+const int Lv1_map_size = 11;//ä¸è¦è¨­å¶æ•¸,è¨­å¶æ•¸åœ°åœ–æœƒç ´www
 const int Lv2_map_size = 21;
 const int Lv3_map_size = 31;
-const int start_r = 1, start_c = 1;//ª±®aªì©l¦ì¸m
+const int start_r = 1, start_c = 1;//ç©å®¶åˆå§‹ä½ç½®
 const char wall = '#';
 const char path = ' ';
 const char player = 'p';
@@ -35,7 +35,7 @@ player_data p_dt;
 void die()
 {
     cout<<"\n--------------------------\n";
-    cout<<"§A¦º¤F~";
+    cout<<"ä½ æ­»äº†~";
     cout<<"\n--------------------------\n";
 }
 
@@ -44,8 +44,8 @@ struct map_data
     int Level = 0;
     int boom = 0;
     int coin = 0;
-    int coin_data = 0;//¨Ì¦a¹Ï¤j¤p½Õ¾ã¿ú¹ô¥X½u¾÷²v ¬µ¼u¥i¯à¤]»İ­n
-    int p_r = 1;//ª±®a¦ì¸m
+    int coin_data = 0;//ä¾åœ°åœ–å¤§å°èª¿æ•´éŒ¢å¹£å‡ºç·šæ©Ÿç‡ ç‚¸å½ˆå¯èƒ½ä¹Ÿéœ€è¦
+    int p_r = 1;//ç©å®¶ä½ç½®
     int p_c = 1;
     int run = true;
     int map_len = 0;
@@ -67,16 +67,16 @@ void cheak_file()
 }
 
 void login();
-//µn¤Jµù¥U----------------------
+//ç™»å…¥è¨»å†Š----------------------
 void Register()
 {
     ofstream out("data.txt", ios::app);
     string player_name;
     string player_code;
-    cout<<"½Ğ¥ıµù¥U±b¸¹\n\n\n";
-    cout<<"½Ğ³]©wª±®a±b¸¹: ";
+    cout<<"è«‹å…ˆè¨»å†Šå¸³è™Ÿ\n\n\n";
+    cout<<"è«‹è¨­å®šç©å®¶å¸³è™Ÿ: ";
     cin>>p_dt.user_name;
-    cout<<"\n½Ğ³]©w±K½X: ";
+    cout<<"\nè«‹è¨­å®šå¯†ç¢¼: ";
     cin>>p_dt.user_code;
     out<<p_dt.user_name<<" "<<p_dt.user_code<<" "<<0<<" "<<0<<endl;
     out.close();
@@ -89,12 +89,12 @@ void login()
 {
     ifstream in("data.txt");
     if (!in.is_open()) {
-        cerr << "µLªk¶}±ÒÀÉ®× data.txt\n";
+        cerr << "ç„¡æ³•é–‹å•Ÿæª”æ¡ˆ data.txt\n";
         return;
     }
 
     char cheak;
-    cout << "\n¬O§_¤wµù¥U? Y/n: ";
+    cout << "\næ˜¯å¦å·²è¨»å†Š? Y/n: ";
     cin >> cheak;
     if (cheak == 'n' || cheak == 'N') {
         Register();
@@ -103,16 +103,16 @@ void login()
 
     while (true) {
         string player_name, player_code;
-        cout << "\n½Ğ¿é¤Jª±®a¦WºÙ: ";
+        cout << "\nè«‹è¼¸å…¥ç©å®¶åç¨±: ";
         cin >> player_name;
-        cout << "\n½Ğ¿é¤J±K½X: ";
+        cout << "\nè«‹è¼¸å…¥å¯†ç¢¼: ";
         cin >> player_code;
 
         string line;
-        vector<string> lines; // Àx¦s©Ò¦³¦æ
+        vector<string> lines; // å„²å­˜æ‰€æœ‰è¡Œ
         bool found = false;
 
-        // Åª¨ú¤å¥ó¨ÃÀË¬d°t¹ï
+        // è®€å–æ–‡ä»¶ä¸¦æª¢æŸ¥é…å°
         while (getline(in, line)) {
             string name, code, coin, level;
             istringstream iss(line);
@@ -126,16 +126,16 @@ void login()
                 p_dt.user_Level = stoi(level);
             }
             else {
-                lines.push_back(line); // °t¹ï¥¢±Ñ¡A«O¯d¸Ó¦æ
+                lines.push_back(line); // é…å°å¤±æ•—ï¼Œä¿ç•™è©²è¡Œ
             }
         }
         in.close();
 
         cout << "\n\n";
         if (found) {
-            cout << "µn¤J§¹¦¨!!\n\n";
+            cout << "ç™»å…¥å®Œæˆ!!\n\n";
 
-            // ¼g¦^­×§ï«áªºÀÉ®×
+            // å¯«å›ä¿®æ”¹å¾Œçš„æª”æ¡ˆ
             ofstream out("data.txt");
             for (const string &l : lines) {
                 out << l << '\n';
@@ -144,18 +144,18 @@ void login()
             return;
         }
         else {
-            cout << "§ä¤£¨ìª±®a±b¸¹©Î±K½X¿ù»~QQ\n\n";
-            cout << "µù¥U±b¸¹: 1";
-            cout << "\n­«·sµn¤J: 2";
-            cout << "\n¹C«È±b¸¹: 3";
-            cout << "\n½Ğ¿é¤J¿ï¾Ü: ";
+            cout << "æ‰¾ä¸åˆ°ç©å®¶å¸³è™Ÿæˆ–å¯†ç¢¼éŒ¯èª¤QQ\n\n";
+            cout << "è¨»å†Šå¸³è™Ÿ: 1";
+            cout << "\né‡æ–°ç™»å…¥: 2";
+            cout << "\néŠå®¢å¸³è™Ÿ: 3";
+            cout << "\nè«‹è¼¸å…¥é¸æ“‡: ";
             int n;
             cin >> n;
             if (n == 1) {
                 Register();
             }
             else if (n == 2) {
-                in.open("data.txt"); // ­«·s¥´¶}ÀÉ®×¶i¦æ¤U¤@¦¸Åª¨ú
+                in.open("data.txt"); // é‡æ–°æ‰“é–‹æª”æ¡ˆé€²è¡Œä¸‹ä¸€æ¬¡è®€å–
                 continue;
             }
             else {
@@ -168,7 +168,7 @@ void login()
 //----------------------------------------------------------
 
 
-//ÀH¾÷²£¥Í¦a¹Ï
+//éš¨æ©Ÿç”¢ç”Ÿåœ°åœ–
 void make_map(vector<vector<char>> & arr, int r, int c, int map_size)
 {
     arr[r][c] = path;
@@ -186,7 +186,7 @@ void make_map(vector<vector<char>> & arr, int r, int c, int map_size)
     }
 }
 
-//©ñµw¹ô
+//æ”¾ç¡¬å¹£
 void put_coin(vector<vector<char>> &arr, map_data &mp_dt)
 {
     int count_coin = 0;
@@ -205,7 +205,7 @@ void put_coin(vector<vector<char>> &arr, map_data &mp_dt)
     mp_dt.coin = count_coin;
 }
 
-//©ñ¬µ¼u
+//æ”¾ç‚¸å½ˆ
 void put_boom(vector<vector<char>> &arr, map_data &mp_dt)
 {
     int count_boom = 0;
@@ -233,7 +233,7 @@ void water_mod(int r, int c, vector<vector<char>> arr, int power)
     {
         arr[r][c] = water;
     }
-    for(int i=0;i<4;i++)//BFS¼ÒÀÀ¤ô¬y,¤£·|¯}ÃaÀğÅé
+    for(int i=0;i<4;i++)//BFSæ¨¡æ“¬æ°´æµ,ä¸æœƒç ´å£ç‰†é«”
     {
         int nr = r + dr[i];
         int nc = c + dc[i];
@@ -244,15 +244,15 @@ void water_mod(int r, int c, vector<vector<char>> arr, int power)
     }
 }
 
-//¬µ¼uÃz¬µ
-void Small_boom(int r, int c, vector<vector<char>> &arr, int power)//°O±o¨ì®É­Ô­n¥ı³]¤p¬µ¼uªºÃz¬µ«Â¤O
+//ç‚¸å½ˆçˆ†ç‚¸
+void Small_boom(int r, int c, vector<vector<char>> &arr, int power)//è¨˜å¾—åˆ°æ™‚å€™è¦å…ˆè¨­å°ç‚¸å½ˆçš„çˆ†ç‚¸å¨åŠ›
 {
     if(power == 0) return;
     if(arr[r][c] != player)
     {
         arr[r][c] = small_fire;
     }
-    for(int i=0;i<4;i++)//BFS¼ÒÀÀ¤p¬µ¼uÃz¬µ,¤£·|¯}ÃaÀğÅé
+    for(int i=0;i<4;i++)//BFSæ¨¡æ“¬å°ç‚¸å½ˆçˆ†ç‚¸,ä¸æœƒç ´å£ç‰†é«”
     {
         int nr = r + dr[i];
         int nc = c + dc[i];
@@ -263,9 +263,9 @@ void Small_boom(int r, int c, vector<vector<char>> &arr, int power)//°O±o¨ì®É­Ô­
     }
 }
 
-void Big_boom(int r, int c, vector<vector<char>> &arr, int len)//¤j¬µ¼uÃz¬µ·|²M°£»ÙÃªª« (°Ò«¢¹y¶ZÂ÷)
+void Big_boom(int r, int c, vector<vector<char>> &arr, int len)//å¤§ç‚¸å½ˆçˆ†ç‚¸æœƒæ¸…é™¤éšœç¤™ç‰© (æ›¼å“ˆé “è·é›¢)
 {
-    int power = rand()%4+1;//ÀH¾÷«Â¤O
+    int power = rand()%4+1;//éš¨æ©Ÿå¨åŠ›
     for(int i=1;i<len;i++)
     {
         for(int k=1;k<len*2;k++)
@@ -304,7 +304,7 @@ void put_player(vector<vector<char>> &my_map, map_data &mp_dt)
     if(mp_dt.coin == 0) mp_dt.run = false;
 }
 
-//¦L¥X¦a¹Ï
+//å°å‡ºåœ°åœ–
 void print_map(vector<vector<char>> &arr)
 {
     for(auto i:arr)
@@ -317,45 +317,45 @@ void print_map(vector<vector<char>> &arr)
     }
 }
 
-//Åã¥Ü¦a¹Ï¸ê°T
+//é¡¯ç¤ºåœ°åœ–è³‡è¨Š
 void Print_map_data(map_data &mp_dt)
 {
     cout<<"\n\n";
-    cout<<"·í«e¦a¹Ï¸ê°T\n\n";
-    cout<<"¦a¹Ïµ¥¯Å: "<<mp_dt.Level;
-    cout<<"\n\n¿ú¹ôÁ`¼Æ: "<<mp_dt.coin;
-    cout<<"\n\n¬µ¼uÁ`¼Æ: "<<mp_dt.boom;
+    cout<<"ç•¶å‰åœ°åœ–è³‡è¨Š\n\n";
+    cout<<"åœ°åœ–ç­‰ç´š: "<<mp_dt.Level;
+    cout<<"\n\néŒ¢å¹£ç¸½æ•¸: "<<mp_dt.coin;
+    cout<<"\n\nç‚¸å½ˆç¸½æ•¸: "<<mp_dt.boom;
     cout<<endl;
 }
-//Åã¥Üª±®a¤Î®É¸ê°T
+//é¡¯ç¤ºç©å®¶åŠæ™‚è³‡è¨Š
 void Print_player_data()
 {
     cout<<"\n";
-    cout<<"ª±®a«ù¦³¿ú¹ô:"<<p_dt.user_coin<<endl;
+    cout<<"ç©å®¶æŒæœ‰éŒ¢å¹£:"<<p_dt.user_coin<<endl;
 }
 
 void Print_user_data()
 {
     cout<<"\n\n\n\n\n\n-----------------------------------";
     cout<<"\n";
-    cout<<"¹CÀ¸¦WºÙ: "<<p_dt.user_name;
-    cout<<"\nª±®aµ¥¯Å: "<<p_dt.user_Level;
-    cout<<"\n«ù¦³¿ú¹ôÁ`¼Æ: "<<p_dt.user_coin;
+    cout<<"éŠæˆ²åç¨±: "<<p_dt.user_name;
+    cout<<"\nç©å®¶ç­‰ç´š: "<<p_dt.user_Level;
+    cout<<"\næŒæœ‰éŒ¢å¹£ç¸½æ•¸: "<<p_dt.user_coin;
     cout<<endl;
     cout<<"-----------------------------------\n\n\n\n\n\n";
 }
 
-void move_mod(int &boom_skill, int &water_skill, vector<vector<char>> &my_map, map_data &mp_dt)//²¾°Ê
+void move_mod(int &boom_skill, int &water_skill, vector<vector<char>> &my_map, map_data &mp_dt)//ç§»å‹•
 {
     char player_move;
     bool error = false;
-    cout<<endl<<"¿é¤J¾Ş§@: ";
+    cout<<endl<<"è¼¸å…¥æ“ä½œ: ";
     cin>>player_move;
     cout<<endl;
-    player_move = tolower(player_move);//²Î¤@¤j¤p¼g
+    player_move = tolower(player_move);//çµ±ä¸€å¤§å°å¯«
     if(player_move == 'w')
     {
-        if(my_map[mp_dt.p_r-1][mp_dt.p_c] == wall)//¨¾¤î§âÀğ¾À¦Y±¼
+        if(my_map[mp_dt.p_r-1][mp_dt.p_c] == wall)//é˜²æ­¢æŠŠç‰†å£åƒæ‰
         {
             error = false;
             return;
@@ -416,17 +416,17 @@ signed main()
     srand(time(NULL));
     double START, END;
     int num;
-    cout<<"µn¤J±b¸¹: 1\n¹C«È±b¸¹: 2\n";
-    cout<<"½Ğ¿ï¾Ü: ";
+    cout<<"ç™»å…¥å¸³è™Ÿ: 1\néŠå®¢å¸³è™Ÿ: 2\n";
+    cout<<"è«‹é¸æ“‡: ";
     cin>>num;
     cout<<"\n";
     if(num == 1) login();
     int choose_Lv;
     int map_size;
-    again://<---------------------------------ª`·N!!!
-    start://<---------------------------------ª`·N!!
+    again://<---------------------------------æ³¨æ„!!!
+    start://<---------------------------------æ³¨æ„!!
 
-    cout<<"½Ğ¿ï¾Ü°g®cµ¥¯Å\n"<<"ªì¯Å : 1\n¤¤¯Å : 2\n°ª¯Å : 3\nª±®a¸ê°T : 4\n"<<"½Ğ¿é¤J>>";
+    cout<<"è«‹é¸æ“‡è¿·å®®ç­‰ç´š\n"<<"åˆç´š : 1\nä¸­ç´š : 2\né«˜ç´š : 3\nç©å®¶è³‡è¨Š : 4\n"<<"è«‹è¼¸å…¥>>";
     cin>>choose_Lv;
     map_data main_dt;
     switch(choose_Lv)
@@ -453,8 +453,8 @@ signed main()
             Print_user_data();
             goto again;
         default:
-            cout<<"¿é¤J¿ù»~½Ğ­«·s¿é¤J";
-            goto start;//<-----------------start½d³ò
+            cout<<"è¼¸å…¥éŒ¯èª¤è«‹é‡æ–°è¼¸å…¥";
+            goto start;//<-----------------startç¯„åœ
             break;
     }
     int n = map_size;
@@ -478,13 +478,14 @@ signed main()
     ofstream out("data.txt");
     out<<p_dt.user_name<<" "<<p_dt.user_code<<" "<<p_dt.user_coin<<" "<<p_dt.user_Level<<endl;
     cout<<"\n---------------------------------\n";
-    cout<<"¹CÀ¸µ²§ô\n";
-    cout<<"ªá¶O®É¶¡: "<< (END - START) / CLOCKS_PER_SEC << "¬í\n";
+    cout<<"éŠæˆ²çµæŸ\n";
+    cout<<"èŠ±è²»æ™‚é–“: "<< (END - START) / CLOCKS_PER_SEC << "ç§’\n";
     cout<<"\n---------------------------------\n";
     char a;
-    cout<<"¬O§_Ä~ÄòY/n: ";
+    cout<<"æ˜¯å¦ç¹¼çºŒY/n: ";
     cin>>a;
-    if(tolower(a) == 'y') goto again;//<----------------------------­«·s¦A¨Ó¤@¹M
+    if(tolower(a) == 'y') goto again;//<----------------------------é‡æ–°å†ä¾†ä¸€é
+    system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     return 0;
 
 }
