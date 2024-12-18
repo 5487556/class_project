@@ -485,7 +485,7 @@ signed main()
     cout<<"是否繼續Y/n: ";
     cin>>a;
     if(tolower(a) == 'y') goto again;//<----------------------------重新再來一遍
-    system("start https://www.youtube.com/watch?v=dQw4w9WgXcQ");
+    system("start chrome https://www.youtube.com/watch?v=dQw4w9WgXcQ");
     return 0;
 
 }
